@@ -4,6 +4,7 @@
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
                 url("/assets/images/hero-img.jpg") center/cover no-repeat;
     position: relative;
+    overflow-x: hidden;
 }
 
 #heading {
@@ -80,3 +81,21 @@
     }
 }
 
+.vol{
+    font-size: 5rem;
+    font-weight: bolder;
+    color: white;
+    position: absolute;
+    cursor: pointer;
+
+}
+
+#volUp{
+    bottom: 2%;
+    right: 2%;
+}
+
+#volDown{
+    bottom: 2%;
+    right: 2%;
+}
