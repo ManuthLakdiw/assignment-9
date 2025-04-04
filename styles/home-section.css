@@ -1,0 +1,82 @@
+#homeSection {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url("/assets/images/hero-img.jpg") center/cover no-repeat;
+    position: relative;
+}
+
+#heading {
+    padding: 60px 0;
+    font-size:6rem;
+    color: #ff1a1a;
+    text-shadow: 3px 3px 15px rgba(0,0,0,0.7),
+                -1px -1px 0 #e6db00,
+                1px -1px 0 #e6db00,
+                -1px 1px 0 #e6db00,
+                1px 1px 0 #e6db00;
+    text-align: center;
+    animation: shake 2s infinite alternate ease-in-out;
+    letter-spacing: 3px;
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(-1deg) scale(1); 
+    }
+    50% {
+        transform: rotate(0deg) scale(1.05); 
+    }
+    100% {
+        transform: rotate(1deg) scale(1); 
+    }
+}
+
+#playBtn {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, #e6db00 0%, #ffeb3b 100%);
+    box-shadow: 0 0 25px rgba(255,235,59,0.4),
+                0 3px 15px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+}
+
+#playBtn:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 0 35px rgba(255,235,59,0.6),
+                0 5px 20px rgba(0,0,0,0.4);
+}
+
+#playBtn i {
+    font-size: 8rem;
+    color: #ff0000;
+    filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.5));
+    animation: play-icon-size 1.5s infinite ease-in-out;
+    transition: all 0.3s ease;
+}
+
+#playBtn:hover i {
+    color: #ff3333;
+    transform: scale(1.1);
+}
+
+@keyframes play-icon-size {
+    0% {
+        transform: scale(0.95); 
+    }
+    50% {
+        transform: scale(1.05); 
+    }
+    100% {
+        transform: scale(0.95); 
+    }
+}
+
