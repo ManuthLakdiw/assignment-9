@@ -56,6 +56,8 @@
         <p id="backToHome">Back to <span>ESC</span></p>
         <h2 id="score">Score : 0</h2>
         <button id="btnStart">Start</button>
+        <i id="pauseIco" class="bi bi-pause-fill"></i>
+        <i id="continueIco" class="bi bi-fast-forward-fill"></i>
         <img
           src="/assets/images/enimi-car-1.png"
           alt="enimicar 1"
@@ -93,11 +95,15 @@
         <div id="road"></div>
         <audio id="carBlastSound" src="/assets/audio/car-blast.mp3"></audio>
         <div id="gameOver">
-          <button id="restart">Restart Game</button>
-          <button id="GoHome">Go To Home</button>
+          <p>Game Over!!!</p>
+          <p>Your Score : 0</p>
+          <div class="btn-container">
+            <button id="restart" class="btn">Restart Game</button>
+            <button id="GoHome" class="btn">Go To Home</button>
+          </div>
           <div class="close">
             <i id="closeIcon" class="bi bi-x"></i>
-            <p>Close</p>
+            <span>Close</span>
           </div>
         </div>
       </section>
