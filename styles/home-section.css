@@ -5,6 +5,7 @@
                 url("/assets/images/hero-img.jpg") center/cover no-repeat;
     position: relative;
     overflow: hidden;
+    z-index: 10;
 }
 
 #heading {
@@ -81,6 +82,28 @@
     }
 }
 
+#homeSection p {
+    font-size: 2rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    font-weight: 600;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: blink 2s infinite; 
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
 .vol{
     font-size: 5rem;
     font-weight: bolder;
@@ -99,3 +122,55 @@
     bottom: 2%;
     right: 2%;
 }
+
+
+.level-contaner {
+    width: 300px;   
+    min-height: 300px;
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    transform: translateY(-50%);
+}
+
+
+
+.level-contaner div {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.level-contaner div:hover {
+    transform: scale(1.05); 
+}
+
+.level-contaner div span {
+    margin-left: 15px;
+    font-size: 1.8rem;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    transition: color 0.3s ease;
+}
+
+.level-contaner div:hover span {
+    color: #ffeb3b;
+    font-weight: bolder;
+}
+
+.check {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+
+
+
+
+
+
