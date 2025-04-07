@@ -108,7 +108,7 @@
     font-size: 5rem;
     font-weight: bolder;
     color: white;
-    position: absolute;
+    position: fixed;
     cursor: pointer;
 
 }

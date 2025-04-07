@@ -8,6 +8,7 @@ $(document).ready(function(){
     $("#continueIco").css("display","none") 
     
 
+    // go to home section
     $(document).on("keyup", function(event){
         if (event.keyCode == 27) {
             pauseAnimation();
@@ -28,7 +29,7 @@ $(document).ready(function(){
         
     });
     
-
+    // pause and continue
     $(document).on("keydown", function(event) {
         tempScore = score;
         if (event.keyCode == 32) { 
@@ -59,6 +60,7 @@ $(document).ready(function(){
     });
     
 
+
     $("#btnYes").on("click",function(){
         document.getElementById("homeSection").scrollIntoView({ behavior: "smooth" });
 
@@ -67,6 +69,8 @@ $(document).ready(function(){
         }, 700); 
 
     });
+
+
 
     $("#btnNo").on("click",function(){
         $("#gobackBox").css("right","-100%")
@@ -83,40 +87,40 @@ $(document).ready(function(){
 
 
     // car move function
-    
     $(document).on("keydown",function(event){
 
         if (!isgameOver) {
             if (event.keyCode == 87 || event.keyCode == 38) {
                 if (y < 75) {
-                    y += 2;
+                    y += 3;
                 }
     
             }else if (event.keyCode == 65 || event.keyCode == 37) {
                 if (x > 33) {
-                    x -= 2;
+                    x -= 3;
                 }
             } else if (event.keyCode == 83 || event.keyCode == 40) {
                 if (y > 1) {
-                    y -= 2;
+                    y -= 3;
                 }
     
             }else if (event.keyCode == 68 || event.keyCode == 39) {
                 if (x < 67) {
-                    x += 2;
+                    x += 3;
                 }
             }
             
             $("#myCar").css({
                 "bottom": `${y}%`,
                 "left": `${x}%`,
-                "transition": "bottom 0.1s, left 0.1s"
             });
     
         }
   
     });
 
+
+    // start game
     $("#btnStart").on("click",function(){
         $("#btnStart").css("display", "none");
         isPauseOrStart = false;
@@ -126,6 +130,57 @@ $(document).ready(function(){
 
         calcualteScore(isCarCrashed);
 
+    });
+
+
+
+    $(".close").on("click",function(){
+        $("#gameOver").css("top","-100%")
+    });
+        
+
+    $("#restart").on("click",function(startAnimations){
+        $("#gameOver").css("top","-100%")
+
+        location.reload();
+            
+    });
+
+    
+    $("#GoHome").on("click",function(){
+        document.getElementById("homeSection").scrollIntoView();
+        setTimeout(function(){
+            location.reload();
+        }, 700); 
+        
+    });
+
+    // play horn
+    $(document).on("keydown", function(event){
+        if (event.keyCode === 81) {
+            $("#hornSound")[0].play();
+        }
+    });
+
+
+    // restart
+    $(document).on("keydown",function(event){
+        if (event.keyCode == 82) {
+            $(".rs").css("top",`${2}%`)
+            pauseAnimation();
+            pauseAnimation();
+            isgameOver = true;
+            isPauseOrStart = true;
+            clearInterval(interValID)
+            clearInterval(enemyCar1Interval);
+            clearInterval(enemyCar2Interval);
+            clearInterval(enemyCar3Interval);
+            clearInterval(enemyCar4Interval);
+    
+            setTimeout(function(){
+                location.reload();
+            },1500);
+        }
     });
 
 
@@ -229,18 +284,21 @@ $(document).ready(function(){
             const carBalstSound = $("#carBlastSound")[0]
             carBalstSound.play();
             pauseAnimation();
-            
+            backGroundAudio.pause();
+            $("#volDown").css("display","block")
+            $("#volUp").css("display","none")
+
             clearInterval(interValID)
             clearInterval(enemyCar1Interval);
             clearInterval(enemyCar2Interval);
             clearInterval(enemyCar3Interval);
             clearInterval(enemyCar4Interval);
 
+
             $("#gameOver").css("top","50%")
             $("#gameOver p:nth-of-type(2)").text(`Your Score : ${score}`)
 
         }            
-
     }
 
     function startAnimations(){
@@ -250,56 +308,6 @@ $(document).ready(function(){
         $(".enimiCar-3").css("animation","enimiCar3-move 3s infinite linear")
         $(".enimiCar-4").css("animation","enimiCar4-move 2s infinite linear")
     }
-
-
-    $(".close").on("click",function(){
-        $("#gameOver").css("top","-100%")
-    });
-        
-
-    $("#restart").on("click",function(startAnimations){
-        $("#gameOver").css("top","-100%")
-
-        location.reload();
-            
-    });
-
-
-    $("#GoHome").on("click",function(){
-        document.getElementById("homeSection").scrollIntoView();
-
-        setTimeout(function(){
-            location.reload();
-        }, 700); 
-        
-    });
-
-    $(document).on("keydown", function(event){
-        if (event.keyCode === 81) {
-            $("#hornSound")[0].play();
-        }
-    });
-
-    $(document).on("keydown",function(event){
-        if (event.keyCode == 82) {
-            $(".rs").css("top",`${2}%`)
-            pauseAnimation();
-            pauseAnimation();
-            isgameOver = true;
-            isPauseOrStart = true;
-            clearInterval(interValID)
-            clearInterval(enemyCar1Interval);
-            clearInterval(enemyCar2Interval);
-            clearInterval(enemyCar3Interval);
-            clearInterval(enemyCar4Interval);
-    
-            setTimeout(function(){
-                location.reload();
-            },1500);
-        }
-    });
-    
-    
     
     
 });

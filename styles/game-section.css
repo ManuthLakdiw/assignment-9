@@ -201,8 +201,7 @@ img{
     transform: translateX(-50%);
     z-index: 2;
     filter: drop-shadow(1px 1px 15px rgba(0, 207, 48, 0.7));
-
-    
+    transition: bottom 0.2s ease, left 0.2s ease;    
 
 }
 

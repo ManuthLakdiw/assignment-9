@@ -1,5 +1,6 @@
+let backGroundAudio;
 $(document).ready(function(){
-    const backGroundAudio = $("#backgroundMusic")[0];
+    backGroundAudio = $("#backgroundMusic")[0];
 
     let volUp = $("#volUp");
     let volDown =  $("#volDown");
