@@ -3,6 +3,7 @@ $(document).ready(function(){
     let isgameOver = false;
     let score = 0;
     let tempScore;
+    let isPauseOrStart = true;
     let enemyCar1Interval, enemyCar2Interval, enemyCar3Interval, enemyCar4Interval;
     $("#continueIco").css("display","none") 
     
@@ -10,6 +11,7 @@ $(document).ready(function(){
     $(document).on("keyup", function(event){
         if (event.keyCode == 27) {
             pauseAnimation();
+            isgameOver = true;
             clearInterval(interValID)
             clearInterval(enemyCar1Interval);
             clearInterval(enemyCar2Interval);
@@ -26,30 +28,33 @@ $(document).ready(function(){
         
     });
     
-    
-    $(document).on("keyup", function(event) {
+
+    $(document).on("keydown", function(event) {
         tempScore = score;
         if (event.keyCode == 32) { 
-            if ($("#continueIco").is(":visible")) {
-                $("#continueIco").fadeOut(200, function() {
-                    $("#pauseIco").fadeIn(200);
-                    score = tempScore;
-                    startAnimations();
-                    calcualteScore(isCarCrashed);
-                    
-                });
-            } else {
-                $("#pauseIco").fadeOut(200, function() {
-                    $("#continueIco").fadeIn(200);
-                    pauseAnimation();
-            clearInterval(interValID)
-            clearInterval(enemyCar1Interval);
-            clearInterval(enemyCar2Interval);
-            clearInterval(enemyCar3Interval);
-            clearInterval(enemyCar4Interval);
-                });
+            if (!isPauseOrStart) {
+                if ($("#continueIco").is(":visible")) {
+                    $("#continueIco").fadeOut(200, function() {
+                        isgameOver = false;
+                        $("#pauseIco").fadeIn(200);
+                        score = tempScore;
+                        startAnimations();
+                        calcualteScore(isCarCrashed);
+                        
+                    });
+                } else {
+                    $("#pauseIco").fadeOut(200, function() {
+                        $("#continueIco").fadeIn(200);
+                        pauseAnimation();
+                        isgameOver = true;
+                        clearInterval(interValID)
+                        clearInterval(enemyCar1Interval);
+                        clearInterval(enemyCar2Interval);
+                        clearInterval(enemyCar3Interval);
+                        clearInterval(enemyCar4Interval);
+                    });
+                }
             }
-    
         }
     });
     
@@ -67,6 +72,7 @@ $(document).ready(function(){
         $("#gobackBox").css("right","-100%")
         score = tempScore;
         startAnimations();
+        isgameOver = false;
         calcualteScore(isCarCrashed);
         
         
@@ -75,6 +81,9 @@ $(document).ready(function(){
     let y = 5
     let x = 50
 
+
+    // car move function
+    
     $(document).on("keydown",function(event){
 
         if (!isgameOver) {
@@ -110,6 +119,7 @@ $(document).ready(function(){
 
     $("#btnStart").on("click",function(){
         $("#btnStart").css("display", "none");
+        isPauseOrStart = false;
         startAnimations();
 
         carPositionChange();
@@ -215,6 +225,7 @@ $(document).ready(function(){
             isGameOver(eCar4Left, eCar4Right, eCar4Top, eCar4Bottom, myCarLeft, myCarRight, myCarTop, myCarBottom)
         ) {
             isgameOver = true;
+            isPauseOrStart = true;
             const carBalstSound = $("#carBlastSound")[0]
             carBalstSound.play();
             pauseAnimation();
@@ -263,7 +274,31 @@ $(document).ready(function(){
         
     });
 
+    $(document).on("keydown", function(event){
+        if (event.keyCode === 81) {
+            $("#hornSound")[0].play();
+        }
+    });
 
+    $(document).on("keydown",function(event){
+        if (event.keyCode == 82) {
+            $(".rs").css("top",`${2}%`)
+            pauseAnimation();
+            pauseAnimation();
+            isgameOver = true;
+            isPauseOrStart = true;
+            clearInterval(interValID)
+            clearInterval(enemyCar1Interval);
+            clearInterval(enemyCar2Interval);
+            clearInterval(enemyCar3Interval);
+            clearInterval(enemyCar4Interval);
+    
+            setTimeout(function(){
+                location.reload();
+            },1500);
+        }
+    });
+    
     
     
     

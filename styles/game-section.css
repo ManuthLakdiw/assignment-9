@@ -384,6 +384,43 @@ img{
 
 
 
+.instructions{
+    position: absolute;
+    top: 30%;
+    left: 0.5%;
+}
+
+.instructions p{
+    color: #e6db00;
+    font-size: 1.5rem;
+    margin-bottom: 35px;
+    filter: drop-shadow(1px 1px 10px black);
+}
+
+.instructions p span{
+    font-weight: bold;
+    color: red;
+}
+
+
+.rs{
+    width: 200px;
+    height: 50px;
+    color: #e6db00;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    z-index: 4;
+    transform: translateX(-50%);
+    filter: drop-shadow(3px 3px 10px black);
+    transition: top 0.5s ease-in-out;   
+}
+
+
 
 
 
