@@ -258,7 +258,7 @@ $(document).ready(function(){
     function calcualteScore(chekCarCrash){
         score;
         interValID = setInterval(() => {
-            if ((level === 1) && (score+1===250)) {
+            if ((level === 4) && (score+1===1000)) {
                 clearInterval(interValID);  
                 pauseAnimation();
                 isgameOver = true;
