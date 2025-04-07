@@ -4,6 +4,7 @@ $(document).ready(function(){
     let score = 0;
     let tempScore;
     let isPauseOrStart = true;
+    let level = 1;
     let enemyCar1Interval, enemyCar2Interval, enemyCar3Interval, enemyCar4Interval;
     $("#continueIco").css("display","none") 
     
@@ -184,15 +185,39 @@ $(document).ready(function(){
     });
 
 
-    function getElementPosition(selector) {
-        let rect = $(selector)[0].getBoundingClientRect();
+    // win page click
+    $("#win").on("click",function(){
+        $("#win").css("top","-100%")
+        $("#volDown").show();
+        $("#volUp").hide();
+    });
+
+
+    function Car(selector) {
+        this.selector = selector;
+    }
+    
+    Car.prototype.getPosition = function () {
+        let rect = $(this.selector)[0].getBoundingClientRect();
         return {
             top: Math.abs(rect.y),
             bottom: Math.abs(rect.bottom),
             left: Math.abs(rect.x),
             right: Math.abs(rect.right)
         };
-    }
+    };
+
+
+    const myCar = new Car("#myCar");
+
+    const enemyCars = [
+        new Car(".enimiCar-1"),
+        new Car(".enimiCar-2"),
+        new Car(".enimiCar-3"),
+        new Car(".enimiCar-4")
+    ];
+
+    
 
     function getRndPosition(max, min) {
         return Math.floor(Math.random() * (max - min + 1) + min);
@@ -233,81 +258,75 @@ $(document).ready(function(){
     function calcualteScore(chekCarCrash){
         score;
         interValID = setInterval(() => {
+            if ((level === 1) && (score+1===250)) {
+                clearInterval(interValID);  
+                pauseAnimation();
+                isgameOver = true;
+                $("#winSound")[0].play();
+                $("#win").css("top" ,"0%");
+                backGroundAudio.pause();
+                $("#volDown").hide();
+                $("#volUp").hide();
+    
+                clearInterval(interValID);
+                clearInterval(enemyCar1Interval);
+                clearInterval(enemyCar2Interval);
+                clearInterval(enemyCar3Interval);
+                clearInterval(enemyCar4Interval);
+            }
+            if ((score > 0) && (score%250 === 0)) {
+                level++;
+                $("#level").text(`Level : ${level}`)
+                $("#lvUp")[0].play();
+                
+              
+            }
             score++;
             $("#score").text(`Score : ${score}`);
-
             chekCarCrash();
 
-        },70);
-        
-       
+        },75);
     }
 
-    function isCarCrashed(){
-
-        let eCar1Top = getElementPosition(".enimiCar-1").top;
-        let eCar1Bottom = getElementPosition(".enimiCar-1").bottom;
-        let eCar1Left = getElementPosition(".enimiCar-1").left;
-        let eCar1Right = getElementPosition(".enimiCar-1").right;
-
-        let eCar2Top = getElementPosition(".enimiCar-2").top;
-        let eCar2Bottom = getElementPosition(".enimiCar-2").bottom;
-        let eCar2Left = getElementPosition(".enimiCar-2").left;
-        let eCar2Right = getElementPosition(".enimiCar-2").right;
-
-
-        let eCar3Top = getElementPosition(".enimiCar-3").top;
-        let eCar3Bottom = getElementPosition(".enimiCar-3").bottom;
-        let eCar3Left = getElementPosition(".enimiCar-3").left;
-        let eCar3Right = getElementPosition(".enimiCar-3").right;
-
-
-        let eCar4Top = getElementPosition(".enimiCar-4").top;
-        let eCar4Bottom = getElementPosition(".enimiCar-4").bottom;
-        let eCar4Left = getElementPosition(".enimiCar-4").left;
-        let eCar4Right = getElementPosition(".enimiCar-4").right;
-
-
-        let myCarTop = getElementPosition("#myCar").top;
-        let myCarBottom = getElementPosition("#myCar").bottom;
-        let myCarLeft = getElementPosition("#myCar").left;
-        let myCarRight = getElementPosition("#myCar").right;
-
-        if (
-            isGameOver(eCar1Left, eCar1Right, eCar1Top, eCar1Bottom, myCarLeft, myCarRight, myCarTop, myCarBottom) || 
-            isGameOver(eCar2Left, eCar2Right, eCar2Top, eCar2Bottom, myCarLeft, myCarRight, myCarTop, myCarBottom) || 
-            isGameOver(eCar3Left, eCar3Right, eCar3Top, eCar3Bottom, myCarLeft, myCarRight, myCarTop, myCarBottom) || 
-            isGameOver(eCar4Left, eCar4Right, eCar4Top, eCar4Bottom, myCarLeft, myCarRight, myCarTop, myCarBottom)
-        ) {
-            isgameOver = true;
-            isPauseOrStart = true;
-            const carBalstSound = $("#carBlastSound")[0]
-            carBalstSound.play();
-            pauseAnimation();
-            backGroundAudio.pause();
-            $("#volDown").css("display","block")
-            $("#volUp").css("display","none")
-
-            clearInterval(interValID)
-            clearInterval(enemyCar1Interval);
-            clearInterval(enemyCar2Interval);
-            clearInterval(enemyCar3Interval);
-            clearInterval(enemyCar4Interval);
-
-
-            $("#gameOver").css("top","50%")
-            $("#gameOver p:nth-of-type(2)").text(`Your Score : ${score}`)
-
-        }            
+    function isCarCrashed() {
+        const myPos = myCar.getPosition();
+    
+        for (let enemy of enemyCars) {
+            const ePos = enemy.getPosition();
+            if (isGameOver(ePos.left, ePos.right, ePos.top, ePos.bottom,
+                           myPos.left, myPos.right, myPos.top, myPos.bottom)) {
+    
+                isgameOver = true;
+                isPauseOrStart = true;
+                $("#carBlastSound")[0].play();
+                pauseAnimation();
+                backGroundAudio.pause();
+                $("#volDown").show();
+                $("#volUp").hide();
+    
+                clearInterval(interValID);
+                clearInterval(enemyCar1Interval);
+                clearInterval(enemyCar2Interval);
+                clearInterval(enemyCar3Interval);
+                clearInterval(enemyCar4Interval);
+    
+                $("#gameOver").css("top", "50%");
+                $("#gameOver p:nth-of-type(2)").text(`Your Score : ${score}`);
+                break;
+            }
+        }
     }
+    
 
     function startAnimations(){
-        $("#road").css("animation","roadMove 20s linear infinite")
+        $("#road").css("animation","roadMove 18s linear infinite")
         $(".enimiCar-1").css("animation","enimiCar1-move 3s infinite linear")
         $(".enimiCar-2").css("animation","enimiCar2-move 5s infinite linear")
         $(".enimiCar-3").css("animation","enimiCar3-move 3s infinite linear")
         $(".enimiCar-4").css("animation","enimiCar4-move 2s infinite linear")
     }
+
+    
     
     
 });

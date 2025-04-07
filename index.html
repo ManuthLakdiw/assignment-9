@@ -30,24 +30,6 @@
           </button>
         </a>
         <p>Tap to play!</p>
-        <div class="level-contaner">
-          <div>
-            <input id="easy" class="check" type="checkbox" />
-            <span>Easy</span>
-          </div>
-          <div>
-            <input id="medium" class="check" type="checkbox" />
-            <span>Medium</span>
-          </div>
-          <div>
-            <input id="hard" class="check" type="checkbox" />
-            <span>Hard</span>
-          </div>
-          <div>
-            <input id="brutal" class="check" type="checkbox" />
-            <span>Brutal</span>
-          </div>
-        </div>
         <i id="volUp" class="vol bi bi-volume-up"></i>
         <i id="volDown" class="vol bi bi-volume-mute"></i>
       </section>
@@ -114,10 +96,19 @@
           </p>
           <p>*Press <span>R</span> to restart the game</p>
           <p>*Press <span>Q</span> for horn</p>
+          <p>*Includes <span>4</span> levels (Score : 1000)</p>
         </div>
         <div class="rs">
           <p>Restarting...</p>
         </div>
+        <p id="level">Level : 1</p>
+        <audio id="lvUp" src="/assets/audio/level-up-sound.mp3"></audio>
+        <div id="win">
+          <i class="bi bi-trophy-fill"></i>
+          <p>You Win!!!</p>
+          <p>tap to close!</p>
+        </div>
+        <audio id="winSound" src="/assets/audio/win-sound.mp3"></audio>
       </section>
     </main>
     <script>
