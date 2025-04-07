@@ -2,7 +2,7 @@
 
 > 🚀 A fast-paced, 2D car racing game made with HTML, CSS & JavaScript.
 
-[🌐 Live Preview](https://your-firebase-link.web.app) • [📂 View Code](https://github.com/your-username/car-game)
+[🌐 Live Preview](https://mini-game-001.web.app) • [📂 View Code](https://github.com/ManuthLakdiw/assignment-9)
 
 ---
 
